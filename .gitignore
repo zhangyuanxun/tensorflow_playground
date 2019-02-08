@@ -1,0 +1,5 @@
+# Directories #
+summary_logs/
+
+# OSX dir files
+.DS_Store

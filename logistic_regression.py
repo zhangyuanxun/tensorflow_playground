@@ -35,7 +35,7 @@ b = tf.Variable(tf.random_normal([1, num_labels], mean=0, stddev=0.01, name="bia
 #      Define logistic regression ops    #
 ##########################################
 # define logistic regression equation simgoid(Wx+b)
-linear_op = tf.add(tf.matlmu(X, W), b, name="linear sum")
+linear_op = tf.add(tf.matmul(X, W), b, name="linear_sum")
 activation_op = tf.nn.sigmoid(linear_op, name="activation")
 
 # number of Epoch in our training
@@ -49,13 +49,13 @@ learning_rate = tf.train.exponential_decay(learning_rate=0.0008,
                                            staircase=True)
 
 # define cost function
-cost = tf.nn.l2_loss(activation_op - y, name="squared_error_cost")
+cost_op = tf.nn.l2_loss(activation_op - y, name="squared_error_cost")
 
 # define optimization function using gradient descent
 optimizer = tf.train.GradientDescentOptimizer(learning_rate=learning_rate)
 
 # define train operation
-train_op = optimizer.minimize(cost)
+train_op = optimizer.minimize(cost_op)
 
 ##########################################
 #             Initialization             #
@@ -83,7 +83,57 @@ summary_activation_op = tf.summary.histogram("output", activation_op)
 summary_accuracy_op = tf.summary.scalar("accuracy", accuracy_op)
 
 # Summary operation for cost
+summary_cost_op = tf.summary.scalar("cost", accuracy_op)
 
+# Summary operation for weights, bias
+summary_weights_op = tf.summary.histogram("weights", W.eval(session=sess))
+summary_bias_op = tf.summary.histogram("biases", b.eval(session=sess))
 
+# merge all summaries
+merged = tf.summary.merge([summary_activation_op, summary_accuracy_op, summary_cost_op,
+                           summary_weights_op, summary_bias_op])
+# Summary writer
+writer = tf.summary.FileWriter("summary_logs", sess.graph)
+
+##########################################
+#         Start to train model           #
+##########################################
+cost = 0
+diff = 1
+epoch_values = []
+accuracy_values = []
+cost_values = []
+
+for it in range(num_epoch):
+    step = sess.run(train_op, feed_dict={X: trainX, y: trainY})
+
+    # report status every 10 epoch
+    if it % 10 == 0:
+        epoch_values.append(it)
+
+        # get performance on train dataset
+        train_accuracy, new_cost = sess.run([accuracy_op, cost_op], feed_dict={X: trainX, y: trainY})
+
+        # add accuracy to live graphing variable
+        accuracy_values.append(train_accuracy)
+
+        # add cost to live graphing variable
+        cost_values.append(new_cost)
+
+        # Re-assign values for variables
+        diff = abs(new_cost - cost)
+        cost = new_cost
+
+        # generate print statements
+        print "step %d, training accuracy %f, cost %f, change in cost %f" % (it, train_accuracy, new_cost, diff)
+
+        if diff < .0001:
+            print "change in cost %f; convergence." % diff
+            break
+
+# Show final performance on test dataset
+print "final accuracy on test dataset: %s" % str(sess.run(accuracy_op, feed_dict={X: testX, y: testY}))
+plt.plot(cost_values)
+plt.show()
 
 
