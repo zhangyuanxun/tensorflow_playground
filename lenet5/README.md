@@ -16,8 +16,8 @@ Andrew NG's suggestions in CS230 Deep Learning.
 * experiments/base_model/params.json: a json file to define hyper-parameters
 
 **3. Main files for training and evaluating the model**
-* train.py: main file for train the model
-* evaluate.py: main file for evaluate model
+* train.py: main file for training the model
+* evaluate.py: main file for evaluating model
 
 ### Reference
 LeCun, Yann, et al. "Gradient-based learning applied to document recognition." Proceedings of the IEEE 86.11 (1998): 2278-2324. [[pdf]](http://yann.lecun.com/exdb/publis/pdf/lecun-98.pdf)
