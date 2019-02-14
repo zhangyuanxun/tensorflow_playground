@@ -14,7 +14,7 @@ Andrew NG's suggestions in CS230 Deep Learning.
 * model/eval_fn.py: define how to evaluate the model
 * model/utils.py: define some utility functions
 
-2. **Model files for defining hyper-parameters and saving the weights are saved under the folder of experiments/**
+2. **Model folder for saving hyper-parameters and weights are defined under the folder of experiments/**
 * experiments/base_model: define model directory
 * experiments/base_model/params.json: a json file to define hyper-parameters
 
