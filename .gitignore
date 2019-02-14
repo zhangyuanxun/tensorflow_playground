@@ -1,5 +1,13 @@
-# Directories #
-summary_logs/
+
+# log files
+*.log
 
 # OSX dir files
 .DS_Store
+
+# ignore folder
+lenet5/experiments/base_model/last_weights/
+lenet5/experiments/base_model/train_summaries/
+
+# ignore files
+metrics_test_last_weights.json

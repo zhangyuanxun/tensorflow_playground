@@ -4,6 +4,8 @@ from os.path import dirname
 import numpy as np
 from scipy import signal
 from scipy import misc
+import matplotlib
+matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 from PIL import Image
 
