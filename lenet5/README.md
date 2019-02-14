@@ -2,7 +2,7 @@
 ![LeNet-5 Architecture](lenet5.png)
 
 A TensorFlow implementation of LeNet-5 Model using low-level TensorFlow APIs. The TensorFlow code structures follows 
-Andrew NG's suggestions in CS230 Deep Learning 
+Andrew NG's suggestions in CS230 Deep Learning.
 
 **1. Model is defined under the folder of model/**
 * model/input_fn.py: define input data pipeline
@@ -19,5 +19,5 @@ Andrew NG's suggestions in CS230 Deep Learning
 * train.py: main file for train the model
 * evaluate.py: main file for evaluate model
 
-###Reference
+#### Reference
 LeCun, Yann, et al. "Gradient-based learning applied to document recognition." Proceedings of the IEEE 86.11 (1998): 2278-2324. [[pdf]](http://yann.lecun.com/exdb/publis/pdf/lecun-98.pdf)
