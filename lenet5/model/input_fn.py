@@ -25,7 +25,7 @@ def parse_fn(image, label):
     return resize_image, label
 
 
-def input_fn(mode, images, params, lables):
+def input_fn(mode, images, params, labels):
     """
     Define the input data pipeline
 
@@ -34,21 +34,21 @@ def input_fn(mode, images, params, lables):
     mode : train (1), evaluate (2)
     images : tensor
     params: param
-    lables : tensor
+    labels : tensor
 
     Returns
     -------
 
     """
     if mode == MODE_TRAIN:
-        dataset = (tf.data.Dataset.from_tensor_slices((images, lables))
+        dataset = (tf.data.Dataset.from_tensor_slices((images, labels))
                    .shuffle(images.shape[0])
                    .map(map_func=parse_fn)
                    .batch(params.batch_size)
                    .prefetch(1)
                    )
     else:
-        dataset = (tf.data.Dataset.from_tensor_slices((images, lables))
+        dataset = (tf.data.Dataset.from_tensor_slices((images, labels))
                    .map(map_func=parse_fn)
                    .batch(params.batch_size)
                    .prefetch(1)
